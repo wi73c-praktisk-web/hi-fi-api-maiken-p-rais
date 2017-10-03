@@ -24,6 +24,17 @@ module.exports = function (app) {
         db.query('select * from produkter where fk_kategori = ?', req.params.id, function (err, data) {
             res.send(data);
         })
+        // db.query(`
+        //     select *
+        //     from produkter
+        //     inner join kategorier on kategorier.id = produkter.fk_kategori
+        //     where fk_kategori = ?
+        // `, req.params.id, function (err, data) {
+        //     res.send(data);
+        // })
+
+
+
     }),
 
     app.get('/produkter/:id', function (req, res) {
@@ -32,6 +43,12 @@ module.exports = function (app) {
             res.send(data);
             console.log(data);
         })
+    }),
+
+    app.get('/produkter/search/:id', function (req, res) {
+        console.log(req.params.id)
+        db.query(`select * from produkter where navn like "%"?"%"`, req.params.id, function (err, data) {
+            res.send(data);
+        })
     })
 }
-
