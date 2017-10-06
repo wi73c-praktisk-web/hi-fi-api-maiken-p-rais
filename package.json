@@ -9,6 +9,7 @@
   "author": "Maiken P. Rais",
   "license": "ISC",
   "dependencies": {
+    "morgan": "^1.9.0",
     "mysql2": "^1.4.2",
     "restify": "^6.0.1",
     "restify-cors-middleware": "^1.0.1"
