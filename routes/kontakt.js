@@ -3,7 +3,7 @@ const db = require('../config/sql').connect();
 module.exports = function (app) {
 
 
-    app.post('/create', (req, res) => {
+    app.post('/kontakt', (req, res) => {
 
         let values = [];
         values.push(req.body.fornavn);
