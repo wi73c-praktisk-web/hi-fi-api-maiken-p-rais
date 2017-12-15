@@ -1,4 +1,5 @@
 const db = require('../config/sql').connect();
+const security = require('../services/security');
 
 module.exports = function (app) {
     app.get('/produkt', function (req, res) {
@@ -82,7 +83,7 @@ module.exports = function (app) {
         })
     });
 
-    app.post('/produkt', (req, res) => {
+    app.post('/produkt', security.isAuthenticated, (req, res, next) => {
 
         let values = [];
         values.push(req.body.navn);

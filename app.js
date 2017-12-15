@@ -14,6 +14,7 @@ server.pre(cors.preflight);
 server.use(cors.actual);
 
 require('./routes/index')(server);
+require('./routes/login')(server);
 
 server.listen(1337);
 
