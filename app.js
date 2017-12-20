@@ -9,7 +9,7 @@ const server = restify.createServer({
 server.use(logger('dev'));
 
 server.use(restify.plugins.bodyParser());
-const cors = corsmiddleware({ origins: ['*'] });
+const cors = corsmiddleware({ origins: ['*'], "allowHeaders": ['Authorization', 'userID'] });
 server.pre(cors.preflight);
 server.use(cors.actual);
 

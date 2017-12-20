@@ -20,6 +20,25 @@ module.exports = function (app) {
         })
     });
 
+    app.get('/kategorier', function (req, res) {
+        db.query('select * from kategorier', function (err, data) {
+            res.send(data);
+        })
+    });
+
+    app.get('/kategorier/:id', function (req, res) {
+        console.log(req.params.id)
+        db.query('select * from kategorier where id = ?', req.params.id, function (err, data) {
+            res.send(data);
+        })
+    });
+
+    app.get('/producenter', function (req, res) {
+        db.query('select * from producent', function (err, data) {
+            res.send(data);
+        })
+    });
+
     app.get('/produkter/kategori/:id', function (req, res) {
         // console.log(req.params.id)
         db.query('select * from produkter where fk_kategori = ?', req.params.id, function (err, data) {
@@ -46,7 +65,7 @@ module.exports = function (app) {
         })
     });
 
-    app.put('/produkter/:id', (req, res, next) => {
+    app.put('/produkter/:id', security.isAuthenticated, (req, res, next) => {
 
         let navn = (req.body.navn == undefined ? '' : req.body.navn);
         let varenr = (req.body.varenr == undefined ? '' : req.body.varenr);
@@ -98,7 +117,7 @@ module.exports = function (app) {
                 console.log(err);
                 res.json(500, {
                     "message": "Internal Server Error",
-                    "error": err
+                    "error": err.message
                 })
             }
             else {
@@ -109,7 +128,7 @@ module.exports = function (app) {
         })
     });
 
-    app.del('/produkt/:id', (req, res, next) => {
+    app.del('/produkt/:id', security.isAuthenticated, (req, res, next) => {
         let id = (isNaN(req.params.id) ? 0 : req.params.id);
         if (id > 0) {
 
